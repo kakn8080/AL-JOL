@@ -2,14 +2,14 @@
 <html lang="ar" dir="rtl">
 <head>
     <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>نظام الكشوفات الذكي | تنظيف تام للاسم</title>
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=yes">
+    <title>نظام الكشوفات الذكي </title>
     <!-- Font Awesome 6 -->
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css">
     <!-- خط عربي -->
     <link href="https://fonts.googleapis.com/css2?family=Cairo:wght@400;600;700&display=swap" rel="stylesheet">
     <style>
-        /* نفس التصميم السابق تماماً */
+        /* نفس التصميم مع توسيع الجدول قليلاً */
         * {
             box-sizing: border-box;
             margin: 0;
@@ -23,30 +23,31 @@
             display: flex;
             justify-content: center;
             align-items: center;
-            padding: 20px;
+            padding: 10px;
             margin: 0;
         }
 
         .container {
-            max-width: 1400px;
+            max-width: 1500px;
             width: 100%;
             background: rgba(255,255,255,0.7);
             backdrop-filter: blur(10px);
             -webkit-backdrop-filter: blur(10px);
-            border-radius: 40px;
+            border-radius: 30px;
             box-shadow: 0 20px 40px rgba(0,20,50,0.15), 0 4px 12px rgba(0,0,0,0.05);
-            padding: 30px;
+            padding: 20px;
             border: 1px solid rgba(255,255,255,0.5);
         }
 
         h1 {
-            font-size: 2.2rem;
+            font-size: 2rem;
             font-weight: 700;
             color: #0b2b4f;
             margin-bottom: 5px;
             display: flex;
             align-items: center;
             gap: 10px;
+            flex-wrap: wrap;
         }
         h1 i {
             color: #2a6df4;
@@ -54,8 +55,8 @@
         }
         .sub {
             color: #2c3e50;
-            margin-bottom: 25px;
-            font-size: 1.1rem;
+            margin-bottom: 20px;
+            font-size: 1rem;
             border-right: 5px solid #2a6df4;
             padding-right: 15px;
             background: rgba(42,109,244,0.05);
@@ -66,37 +67,36 @@
         .live-preview {
             background: #1a2639;
             color: #ffffff;
-            padding: 20px 25px;
-            border-radius: 60px 20px 60px 20px;
-            margin-bottom: 25px;
+            padding: 15px 20px;
+            border-radius: 50px 20px 50px 20px;
+            margin-bottom: 20px;
             box-shadow: 0 10px 20px rgba(0,0,0,0.2);
             border: 2px solid #b3d0ff;
             display: flex;
             align-items: center;
-            gap: 15px;
+            gap: 10px;
             transition: all 0.2s;
         }
         .live-preview i {
-            font-size: 2.5rem;
+            font-size: 2rem;
             color: #ffd966;
             filter: drop-shadow(0 0 5px #ffb700);
         }
         .preview-text {
             flex: 1;
-            font-size: 1.4rem;
+            font-size: 1.2rem;
             font-weight: 500;
-            letter-spacing: 0.5px;
-            min-height: 4rem;
+            min-height: 3rem;
             background: rgba(255,255,255,0.1);
-            border-radius: 50px;
-            padding: 10px 25px;
+            border-radius: 40px;
+            padding: 8px 20px;
             border: 1px solid #4a5c7c;
             font-family: 'Cairo', monospace;
             word-break: break-word;
         }
         .speech-indicator {
-            width: 18px;
-            height: 18px;
+            width: 16px;
+            height: 16px;
             border-radius: 50%;
             background: #55ef6b;
             box-shadow: 0 0 10px #00ff40;
@@ -108,20 +108,20 @@
         }
         @keyframes pulse { 0% { opacity: 1; transform: scale(1); } 50% { opacity: 0.6; transform: scale(1.2); } }
 
-        /* شريط الأزرار */
+        /* شريط الأزرار (لمسة كبيرة للجوال) */
         .action-bar {
             display: flex;
             flex-wrap: wrap;
-            gap: 12px;
-            margin-bottom: 25px;
+            gap: 10px;
+            margin-bottom: 20px;
             justify-content: center;
         }
         .btn {
             font-family: 'Cairo', sans-serif;
             border: none;
-            padding: 14px 28px;
-            border-radius: 50px;
-            font-size: 1.1rem;
+            padding: 16px 22px;
+            border-radius: 60px;
+            font-size: 1.2rem;
             font-weight: 600;
             display: inline-flex;
             align-items: center;
@@ -130,8 +130,11 @@
             transition: 0.2s;
             box-shadow: 0 8px 16px rgba(0,30,60,0.1);
             border: 1px solid rgba(255,255,255,0.3);
+            min-width: 160px;
+            justify-content: center;
+            -webkit-tap-highlight-color: transparent;
         }
-        .btn i { font-size: 1.3rem; }
+        .btn i { font-size: 1.4rem; }
         .btn-primary {
             background: #0a2a44;
             color: white;
@@ -148,38 +151,33 @@
             color: white;
         }
         .btn-danger:hover { background: #c44545; transform: translateY(-3px); }
-        .btn-outline {
-            background: white;
-            color: #0a2a44;
-            border: 2px solid #0a2a44;
-        }
-        .btn-outline:hover { background: #e8f0fe; }
 
-        /* الجدول */
+        /* الجدول مع تمرير أفقي للجوال */
         .table-wrapper {
             background: white;
-            border-radius: 32px;
-            overflow: hidden;
+            border-radius: 25px;
+            overflow-x: auto;
             box-shadow: 0 12px 30px rgba(0,0,0,0.1);
             border: 1px solid #cfdff5;
+            -webkit-overflow-scrolling: touch;
         }
         table {
             width: 100%;
             border-collapse: collapse;
-            font-size: 1rem;
-            min-width: 900px;
+            font-size: 0.95rem;
+            min-width: 1200px; /* توسيع قليلاً لاستيعاب العمود الجديد */
         }
         th {
             background: #f2f7ff;
             color: #0b2b4f;
             font-weight: 700;
             padding: 16px 8px;
-            font-size: 1.1rem;
+            font-size: 1rem;
             border-bottom: 3px solid #8db6f0;
             white-space: nowrap;
         }
         td {
-            padding: 10px 8px;
+            padding: 10px 5px;
             border-bottom: 1px solid #d9e6ff;
             text-align: center;
             vertical-align: middle;
@@ -206,11 +204,12 @@
             background: none;
             border: none;
             color: #b13e3e;
-            font-size: 1.5rem;
+            font-size: 1.8rem;
             cursor: pointer;
-            padding: 5px 10px;
-            border-radius: 30px;
+            padding: 5px 15px;
+            border-radius: 40px;
             transition: 0.2s;
+            -webkit-tap-highlight-color: transparent;
         }
         .delete-row:hover {
             background: #ffe2e2;
@@ -225,7 +224,7 @@
             margin-top: 20px;
             text-align: left;
             color: #2c3e50;
-            font-size: 0.95rem;
+            font-size: 0.9rem;
             background: rgba(255,255,255,0.5);
             padding: 10px 20px;
             border-radius: 60px;
@@ -234,8 +233,8 @@
 </head>
 <body>
 <div class="container">
-    <h1><i class="fas fa-microphone-alt"></i> نظام الكشوفات الذكي | تنظيف الاسم بالكامل</h1>
-    <div class="sub">الآن الاسم يبقى نظيفاً دون أي كلمات زائدة أو أرقام</div>
+    <h1><i class="fas fa-microphone-alt"></i> نظام الكشوفات الذكي </h1>
+    <div class="sub">تحدث: الاسم الكامل، ثم اسم الزوجة، ثم العدد، ثم البطاقة، ثم الجوال — وسنضعها في أماكنها</div>
 
     <!-- مربع المعاينة المباشر -->
     <div class="live-preview">
@@ -257,7 +256,8 @@
             <thead>
                 <tr>
                     <th>#</th>
-                    <th>الاسم الكامل</th>
+                    <th>اسم الزوج</th>
+                    <th>اسم الزوجة</th>
                     <th>العدد</th>
                     <th>رقم البطاقة</th>
                     <th>رقم الجوال</th>
@@ -270,7 +270,7 @@
         </table>
     </div>
     <div class="footer-note">
-        <i class="fas fa-check-circle"></i> مثال: "الاسم رمان يسلم باجحه العدد 7 رقم البطاقة 12345678910 رقم الجوال 779359509" ← الاسم "رمان يسلم باجحه"
+        <i class="fas fa-check-circle"></i> مثال: "الاسم جعفر نجيب بن شهبل اسم الزوجة منى عبد الرحمن العواقبي العدد 4 رقم البطاقة 080499235 رقم الجوال 781899624"
     </div>
 </div>
 
@@ -303,7 +303,7 @@
         let isListening = false;
         let finalTranscript = '';
 
-        // -------------------- تهيئة الجدول بـ 20 صفاً --------------------
+        // -------------------- تهيئة الجدول بـ 20 صفاً (مع العمود الجديد) --------------------
         function initTable() {
             tbody.innerHTML = '';
             for (let i = 1; i <= 20; i++) {
@@ -318,30 +318,42 @@
             tdIndex.textContent = index;
             tr.appendChild(tdIndex);
 
+            // اسم الزوج
             const tdName = document.createElement('td');
             tdName.setAttribute('contenteditable', 'true');
             tdName.setAttribute('data-field', 'name');
             tdName.textContent = '';
             tr.appendChild(tdName);
 
+            // اسم الزوجة
+            const tdWife = document.createElement('td');
+            tdWife.setAttribute('contenteditable', 'true');
+            tdWife.setAttribute('data-field', 'wife');
+            tdWife.textContent = '';
+            tr.appendChild(tdWife);
+
+            // العدد
             const tdCount = document.createElement('td');
             tdCount.setAttribute('contenteditable', 'true');
             tdCount.setAttribute('data-field', 'count');
             tdCount.textContent = '';
             tr.appendChild(tdCount);
 
+            // البطاقة
             const tdId = document.createElement('td');
             tdId.setAttribute('contenteditable', 'true');
             tdId.setAttribute('data-field', 'idCard');
             tdId.textContent = '';
             tr.appendChild(tdId);
 
+            // الجوال
             const tdMobile = document.createElement('td');
             tdMobile.setAttribute('contenteditable', 'true');
             tdMobile.setAttribute('data-field', 'mobile');
             tdMobile.textContent = '';
             tr.appendChild(tdMobile);
 
+            // حذف
             const tdDel = document.createElement('td');
             tdDel.className = 'delete-cell';
             const delBtn = document.createElement('button');
@@ -351,10 +363,11 @@
             delBtn.onclick = function() {
                 const row = this.closest('tr');
                 if (row) {
-                    row.cells[1].textContent = '';
-                    row.cells[2].textContent = '';
-                    row.cells[3].textContent = '';
-                    row.cells[4].textContent = '';
+                    row.cells[1].textContent = ''; // الاسم
+                    row.cells[2].textContent = ''; // الزوجة
+                    row.cells[3].textContent = ''; // العدد
+                    row.cells[4].textContent = ''; // البطاقة
+                    row.cells[5].textContent = ''; // الجوال
                 }
             };
             tdDel.appendChild(delBtn);
@@ -363,7 +376,7 @@
             tbody.appendChild(tr);
         }
 
-        // إعادة ترقيم الصفوف (إذا زاد العدد عن 20)
+        // إعادة ترقيم الصفوف
         function renumberRows() {
             const rows = tbody.querySelectorAll('tr');
             rows.forEach((row, idx) => {
@@ -372,11 +385,11 @@
             });
         }
 
-        // العثور على أول صف فارغ
+        // العثور على أول صف فارغ (بناءً على خلية الاسم الكامل)
         function findFirstEmptyRow() {
             const rows = tbody.querySelectorAll('tr');
             for (let row of rows) {
-                const nameCell = row.cells[1];
+                const nameCell = row.cells[1]; // الاسم الكامل
                 if (!nameCell || nameCell.textContent.trim() === '') {
                     return row;
                 }
@@ -389,20 +402,22 @@
 
         // -------------------- دوال مساعدة للاستخراج الدقيق --------------------
 
-        // تحويل الكلمات العددية إلى أرقام
-        function convertSpokenNumbers(text) {
-            const numMap = {
-                'صفر': '0', 'واحد': '1', 'اثنان': '2', 'اثنين': '2', 'ثلاثة': '3', 'ثلاث': '3',
-                'أربعة': '4', 'أربع': '4', 'خمسة': '5', 'خمس': '5',
-                'ستة': '6', 'ست': '6', 'سبعة': '7', 'سبع': '7',
-                'ثمانية': '8', 'ثمان': '8', 'تسعة': '9', 'تسع': '9', 'عشرة': '10', 'عشر': '10'
-            };
-            let newText = text;
+        // قاموس الأرقام الأساسية
+        const numMap = {
+            'صفر': '0', 'واحد': '1', 'اثنان': '2', 'اثنين': '2', 'ثلاثة': '3', 'ثلاثه': '3',
+            'اربعة': '4', 'اربعه': '4', 'خمسة': '5', 'خمسه': '5',
+            'ستة': '6', 'سته': '6', 'سبعة': '7', 'سبعه': '7',
+            'ثمانية': '8', 'ثمانيه': '8', 'تسعة': '9', 'تسعه': '9', 'عشرة': '10', 'عشره': '10'
+        };
 
-            // أنماط التكرار
+        // دالة متقدمة لتحويل الكلمات الرقمية المتتالية إلى أرقام متراصة
+        function convertSpokenNumbers(text) {
+            // معالجة الأنماط الخاصة
+            let newText = text;
             const repeatPatterns = [
                 { plural: 'سبعات', digit: '7' }, { plural: 'ثمانات', digit: '8' }, { plural: 'تسعات', digit: '9' },
-                { plural: 'خمسات', digit: '5' }, { plural: 'أربعات', digit: '4' }, { plural: 'ستات', digit: '6' }
+                { plural: 'خمسات', digit: '5' }, { plural: 'أربعات', digit: '4' }, { plural: 'ستات', digit: '6' },
+                { plural: 'اثنينات', digit: '2' }, { plural: 'ثلاثات', digit: '3' }
             ];
             for (let pat of repeatPatterns) {
                 const regex = new RegExp(`(\\w+)\\s+${pat.plural}`, 'g');
@@ -414,21 +429,49 @@
                 });
             }
 
-            newText = newText.replace(/\bصفرين\b/g, '00');
-            newText = newText.replace(/\bسبعتين\b/g, '77');
-            newText = newText.replace(/\bثمانيتين\b/g, '88');
-            newText = newText.replace(/\bتسعتين\b/g, '99');
-
-            for (let [word, digit] of Object.entries(numMap)) {
-                const wordRegex = new RegExp(`\\b${word}\\b`, 'g');
-                newText = newText.replace(wordRegex, digit);
+            // أنماط الأصفار
+            const zeroPatterns = [
+                { word: 'أصفار', digit: '0' }, { word: 'صفر', digit: '0' }
+            ];
+            for (let pat of zeroPatterns) {
+                const regex = new RegExp(`(\\w+)\\s+${pat.word}`, 'g');
+                newText = newText.replace(regex, (match, p1) => {
+                    const numWord = p1.trim();
+                    let count = parseInt(numMap[numWord] || numWord);
+                    if (isNaN(count)) count = 1;
+                    return pat.digit.repeat(count);
+                });
             }
-            return newText;
+
+            // تحويل الكلمات الفردية المتتالية
+            let tokens = newText.split(/(\s+)/).filter(t => t.trim().length > 0 || t === ' ');
+            let result = [];
+            let i = 0;
+            while (i < tokens.length) {
+                let token = tokens[i];
+                if (token.trim() === '') {
+                    result.push(token);
+                    i++;
+                    continue;
+                }
+                if (numMap.hasOwnProperty(token)) {
+                    let numberStr = numMap[token];
+                    i++;
+                    while (i < tokens.length && numMap.hasOwnProperty(tokens[i].trim())) {
+                        numberStr += numMap[tokens[i].trim()];
+                        i++;
+                    }
+                    result.push(numberStr);
+                } else {
+                    result.push(token);
+                    i++;
+                }
+            }
+            return result.join('');
         }
 
-        // استخراج رقم معين
+        // استخراج رقم معين (جوال / بطاقة)
         function extractNumberWithSpaces(text, options = {}) {
-            const digitsOnly = text.replace(/\s/g, '');
             const numberPattern = /[\d\s]+/g;
             let match;
             while ((match = numberPattern.exec(text)) !== null) {
@@ -453,7 +496,8 @@
             const countPatterns = [
                 { regex: /عدد\s+(\d{1,2})/i, group: 1 },
                 { regex: /أفراد\s+(\d{1,2})/i, group: 1 },
-                { regex: /(\d{1,2})\s*(فرد|أفراد)/i, group: 1 }
+                { regex: /(\d{1,2})\s*(فرد|أفراد)/i, group: 1 },
+                { regex: /العدد\s+(\d{1,2})/i, group: 1 }
             ];
             for (let pat of countPatterns) {
                 const match = pat.regex.exec(text);
@@ -477,42 +521,43 @@
             return null;
         }
 
-        // -------------------- تنظيف الاسم بشكل قوي --------------------
-        // قائمة موسعة من الكلمات التي يجب إزالتها من الاسم
+        // -------------------- تنظيف النص (للاستخدام مع الاسم والزوجة) --------------------
         const stopWords = [
             'الاسم', 'اسم', 'سجل', 'بطاقة', 'البطاقة', 'رقم', 'الرقم', 'الجوال', 'جوال',
             'هوية', 'هو', 'و', 'العدد', 'عدد', 'أفراد', 'افراد', 'فرد', 'البطاقه', 'رقم البطاقة',
-            'رقم الجوال', 'كذا', 'التالي', 'هذا', 'هذه', 'تم', 'التحديث', 'إضافة', 'حذف'
+            'رقم الجوال', 'كذا', 'التالي', 'هذا', 'هذه', 'تم', 'التحديث', 'إضافة', 'حذف',
+            'الزوجة', 'زوجة', 'الزوجه', 'زوجه'  // إضافة كلمات الزوجة
         ];
 
         function cleanName(rawName) {
             let name = rawName;
-            // 1. إزالة جميع الأرقام
+            // إزالة الأرقام
             name = name.replace(/\d+/g, '');
-            // 2. إزالة الكلمات التوجيهية (مع مراعاة التشكيل والمسافات)
+            // إزالة الكلمات التوجيهية
             stopWords.forEach(word => {
-                // إنشاء نمط يبحث عن الكلمة بحدود كلمة (قد تكون معزولة)
                 const regex = new RegExp(`\\b${word}\\b`, 'gi');
                 name = name.replace(regex, '');
             });
-            // 3. إزالة أي عبارات متبقية مثل "الرقم البطاقه" - نزيل الكلمات المركبة أيضاً
-            // نقوم بإزالة كل ما يشبه "رقم البطاقة" أو "البطاقة رقم" بشكل عام
+            // إزالة العبارات المركبة
             name = name.replace(/رقم\s+البطاقه?/gi, '');
             name = name.replace(/البطاقه?\s+رقم/gi, '');
             name = name.replace(/رقم\s+الجوال/gi, '');
             name = name.replace(/الجوال\s+رقم/gi, '');
             name = name.replace(/العدد\s+رقم/gi, '');
-            // 4. إزالة المسافات الزائدة
+            name = name.replace(/العدد\s+(\d+)/gi, '');
+            name = name.replace(/عدد\s+(\d+)/gi, '');
+            // إزالة "ال" المنفردة
+            name = name.replace(/\bال\b/g, ' ');
             name = name.replace(/\s+/g, ' ').trim();
             return name;
         }
 
-        // دالة الاستخراج الرئيسية (معدلة بالكامل مع تحسين تنظيف الاسم)
+        // دالة الاستخراج الرئيسية (معدلة لاستخراج اسم الزوجة بدقة)
         function extractFieldsFromText(spokenText) {
             let text = convertSpokenNumbers(spokenText);
             text = text.replace(/\s+/g, ' ').trim();
 
-            let mobile = '', idCard = '', count = '';
+            let mobile = '', idCard = '', count = '', wife = '';
             let remainingText = text;
 
             // 1. استخراج الجوال
@@ -536,20 +581,45 @@
                 remainingText = remainingText.replace(countMatch.matchText, '');
             }
 
-            // 4. تنظيف الاسم: النص المتبقي بعد إزالة الأرقام والكلمات التوجيهية
-            let name = cleanName(remainingText);
+            // 4. استخراج اسم الزوجة: نبحث عن أي من الأنماط التالية ونأخذ النص حتى الكلمة التالية أو نهاية السطر
+            const wifePatterns = [
+                /(?:اسم\s+)?الزوجة\s*(.*?)(?=\s*(?:العدد|رقم|البطاقة|الجوال|$))/i,
+                /(?:اسم\s+)?الزوجه\s*(.*?)(?=\s*(?:العدد|رقم|البطاقة|الجوال|$))/i,
+                /زوجة\s*(.*?)(?=\s*(?:العدد|رقم|البطاقة|الجوال|$))/i,
+                /زوجه\s*(.*?)(?=\s*(?:العدد|رقم|البطاقة|الجوال|$))/i
+            ];
 
-            return { name, count, idCard, mobile };
+            for (let pattern of wifePatterns) {
+                const match = pattern.exec(remainingText);
+                if (match) {
+                    wife = match[1].trim(); // النص بعد الكلمة المفتاحية
+                    // إزالة العبارة بالكامل من remainingText (الكلمة المفتاحية + الاسم)
+                    remainingText = remainingText.replace(match[0], '');
+                    break;
+                }
+            }
+
+            // 5. تنظيف الاسم الكامل (ما تبقى)
+            let husband = cleanName(remainingText);
+
+            // 6. تنظيف اسم الزوجة إذا وجد
+            if (wife) {
+                wife = cleanName(wife);
+            }
+
+            return { name: husband, wife, count, idCard, mobile };
         }
 
         // -------------------- إضافة البيانات إلى الجدول --------------------
         function addDataToTable(data) {
             const row = findFirstEmptyRow();
             if (row) {
+                // الترتيب: index[0], name[1], wife[2], count[3], idCard[4], mobile[5], delete[6]
                 if (data.name) row.cells[1].textContent = data.name;
-                if (data.count) row.cells[2].textContent = data.count;
-                if (data.idCard) row.cells[3].textContent = data.idCard;
-                if (data.mobile) row.cells[4].textContent = data.mobile;
+                if (data.wife) row.cells[2].textContent = data.wife;
+                if (data.count) row.cells[3].textContent = data.count;
+                if (data.idCard) row.cells[4].textContent = data.idCard;
+                if (data.mobile) row.cells[5].textContent = data.mobile;
             }
         }
 
@@ -638,10 +708,11 @@
             }
         });
 
-        // منع إدخال أرقام في الاسم يدوياً
+        // منع إدخال أرقام في الاسم واسم الزوجة يدوياً
         tbody.addEventListener('input', function(e) {
             const cell = e.target;
-            if (cell.hasAttribute('contenteditable') && cell.getAttribute('data-field') === 'name') {
+            const field = cell.getAttribute('data-field');
+            if (field === 'name' || field === 'wife') {
                 cell.textContent = cell.textContent.replace(/\d+/g, '');
             }
         });
