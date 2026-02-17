@@ -3,7 +3,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=yes">
-    <title>نظام الكشوفات الذكي </title>
+    <title>نظام الكشوفات الذكي | استيراد غير محدود</title>
     <!-- Font Awesome 6 -->
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css">
     <!-- خط عربي -->
@@ -151,6 +151,11 @@
             color: white;
         }
         .btn-danger:hover { background: #c44545; transform: translateY(-3px); }
+        .btn-info {
+            background: #17a2b8;
+            color: white;
+        }
+        .btn-info:hover { background: #138496; transform: translateY(-3px); }
 
         /* الجدول مع تمرير أفقي للجوال */
         .table-wrapper {
@@ -165,7 +170,7 @@
             width: 100%;
             border-collapse: collapse;
             font-size: 0.95rem;
-            min-width: 1200px; /* توسيع قليلاً لاستيعاب العمود الجديد */
+            min-width: 1200px;
         }
         th {
             background: #f2f7ff;
@@ -229,6 +234,10 @@
             padding: 10px 20px;
             border-radius: 60px;
         }
+        /* إخفاء مدخل الملف */
+        #fileImport {
+            display: none;
+        }
     </style>
 </head>
 <body>
@@ -243,12 +252,16 @@
         <div class="speech-indicator" id="indicator"></div>
     </div>
 
-    <!-- أزرار التحكم -->
+    <!-- أزرار التحكم (تم إضافة زر استيراد Word) -->
     <div class="action-bar">
         <button class="btn btn-primary" id="startSpeechBtn"><i class="fas fa-play"></i> بدء التحدث</button>
         <button class="btn btn-success" id="exportWordBtn"><i class="fas fa-file-word"></i> تصدير Word</button>
+        <button class="btn btn-info" id="importWordBtn"><i class="fas fa-file-import"></i> استيراد Word</button>
         <button class="btn btn-danger" id="clearTableBtn"><i class="fas fa-trash-alt"></i> مسح الجدول</button>
     </div>
+
+    <!-- مدخل الملف المخفي لاستيراد Word -->
+    <input type="file" id="fileImport" accept=".doc,.docx,.html,.htm" />
 
     <!-- الجدول -->
     <div class="table-wrapper">
@@ -296,6 +309,8 @@
         const indicator = document.getElementById('indicator');
         const startBtn = document.getElementById('startSpeechBtn');
         const exportBtn = document.getElementById('exportWordBtn');
+        const importBtn = document.getElementById('importWordBtn');
+        const fileImport = document.getElementById('fileImport');
         const clearBtn = document.getElementById('clearTableBtn');
         const tbody = document.getElementById('tableBody');
 
@@ -698,6 +713,63 @@
             link.href = URL.createObjectURL(blob);
             link.download = 'كشوفات_صوتي.doc';
             link.click();
+        });
+
+        // استيراد Word (معدل لدعم عدد غير محدود من الصفوف)
+        importBtn.addEventListener('click', function() {
+            fileImport.click(); // فتح نافذة اختيار الملف
+        });
+
+        fileImport.addEventListener('change', function(event) {
+            const file = event.target.files[0];
+            if (!file) return;
+
+            const reader = new FileReader();
+            reader.onload = function(e) {
+                const content = e.target.result;
+                // نبحث عن الجدول داخل محتوى HTML
+                const parser = new DOMParser();
+                const doc = parser.parseFromString(content, 'text/html');
+                const importedTable = doc.querySelector('table');
+                if (!importedTable) {
+                    alert('لم يتم العثور على جدول في الملف المحدد');
+                    return;
+                }
+
+                // استخراج الصفوف من tbody الخاص بالجدول المستورد
+                const importedBody = importedTable.querySelector('tbody');
+                if (!importedBody) {
+                    alert('الجدول لا يحتوي على بيانات');
+                    return;
+                }
+
+                const rows = importedBody.querySelectorAll('tr');
+                // نبدأ بتعبئة الصفوف الموجودة في الجدول الحالي (نستخدم let لأننا سنعيد تعيينها)
+                let currentRows = tbody.querySelectorAll('tr');
+                let rowIndex = 0;
+                for (let row of rows) {
+                    // إذا وصلنا إلى نهاية الصفوف الموجودة، نضيف صفاً جديداً
+                    if (rowIndex >= currentRows.length) {
+                        appendEmptyRow(currentRows.length + 1);
+                        // تحديث currentRows ليشمل الصف المضاف حديثاً
+                        currentRows = tbody.querySelectorAll('tr');
+                    }
+                    const cells = row.querySelectorAll('td');
+                    if (cells.length >= 6) { // على الأقل 6 خلايا (الترقيم + الاسم + الزوجة + العدد + البطاقة + الجوال)
+                        // الخلية الأولى هي الترقيم نتخطاها، نبدأ من index 1
+                        currentRows[rowIndex].cells[1].textContent = cells[1]?.textContent || '';
+                        currentRows[rowIndex].cells[2].textContent = cells[2]?.textContent || '';
+                        currentRows[rowIndex].cells[3].textContent = cells[3]?.textContent || '';
+                        currentRows[rowIndex].cells[4].textContent = cells[4]?.textContent || '';
+                        currentRows[rowIndex].cells[5].textContent = cells[5]?.textContent || '';
+                    }
+                    rowIndex++;
+                }
+                alert('تم استيراد البيانات بنجاح');
+                // إعادة تعيين قيمة input لتمكين اختيار نفس الملف مرة أخرى
+                fileImport.value = '';
+            };
+            reader.readAsText(file);
         });
 
         // مسح الجدول
